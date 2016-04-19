@@ -1,0 +1,56 @@
+{
+    "id": "a2e6a7d0-e6c1-11e5-a8b3-adb2eeee129c",
+    "name": "BuildChain",
+    "friendlyName": "Build Chain",
+    "description": "Trigger another TFS Build",
+    "helpMarkDown": "[More Information](https://confluence.avl.com/its/display/TOOLS)",
+    "category": "Utility",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "author": "Martin Buchleitner",
+    "version": {
+        "Major": 0,
+        "Minor": 3,
+        "Patch": 5
+    },
+    "inputs": [
+	        {
+            "name": "tfsCollectionConnection",
+            "type": "connectedService:Generic",
+            "label": "Team Foundation Server - Collection Connection",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "TFS Server connection to target collection."
+        },
+        {
+            "name": "Project",
+            "type": "string",
+            "label": "TFS Project",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Empty will stay in the same project"
+        },
+        {
+            "name": "BuildDefinition",
+            "type": "string",
+            "label": "Build Definition",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        }
+    ],
+    "instanceNameFormat": "Build Chain $(tfsCollectionConnection)/$(Project) - $(BuildDefinition)",
+    "execution": {
+        "PowerShell": {
+            "target": "$(currentDirectory)\\TFSBuildChain.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(currentDirectory)"
+        }
+    },
+    "messages": {
+        "CmdLineReturnCode": "%s exited with return code: %d",
+        "CmdLineFailed": "%s failed with error: %s"
+    }
+}
